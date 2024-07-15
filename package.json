@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "add": "^2.0.6",
     "expo": "~51.0.20",
     "expo-status-bar": "~1.12.1",
     "nativewind": "^2.0.11",
