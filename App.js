@@ -13,7 +13,7 @@ export default function App() {
               <StatusBar style="auto" />
 
               <SignedIn>
-                  <Text>Hello</Text>
+                  <Text className="mt-20">Hello 41.21</Text>
               </SignedIn>
               <SignedOut>
                   <LoginScreen/>
