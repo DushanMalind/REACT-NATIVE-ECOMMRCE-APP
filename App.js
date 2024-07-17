@@ -2,6 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
 import LoginScreen from "./Apps/Screens/LoginScreen";
 import {ClerkProvider, SignedIn, SignedOut} from "@clerk/clerk-expo";
+import TabNavigation from "./Apps/Naviations/TabNavigation";
+import {NavigationContainer} from "@react-navigation/native";
+
 
 export default function App() {
   return (
@@ -9,7 +12,9 @@ export default function App() {
       <View className="flex-1  bg-white">
       <StatusBar style="auto" />
           <SignedIn>
-              <Text>Login</Text>
+           <NavigationContainer>
+               <TabNavigation/>
+           </NavigationContainer>
           </SignedIn>
           <SignedOut>
               <LoginScreen />
