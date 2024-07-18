@@ -46,13 +46,18 @@ export default function AddPostScreen() {
         }
     };
 
+    const OnSubmitMethod=(value)=>{
+        value.image=image;
+        console.log("Values:",value);
+    }
+
     return (
         <View className="p-10">
             <Text className="text-[27px] font-blod">Add Post</Text>
             <Text className="text-[16px] text-gray-500 mb-7">Start New Selling</Text>
             <Formik
                 initialValues={{title:'',desc:'',category:'',address:'',price:'',image:''}}
-                onSubmit={values => console.log(values)}
+                onSubmit={values => OnSubmitMethod(values)}
             >
                 {({handleChange,handleBlur,handleSubmit,values,setFieldValue})=>(
                    <View>
@@ -73,7 +78,7 @@ export default function AddPostScreen() {
                            style={styles.input}
                            placeholder="Description"
                            value={values?.desc}
-                           numberOfLines={5}
+                           numberOfLines={4}
                            onChangeText={handleChange('desc')}
                        />
 
