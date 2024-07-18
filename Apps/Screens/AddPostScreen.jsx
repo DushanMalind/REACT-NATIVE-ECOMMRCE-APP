@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Text, TextInput, View, StyleSheet, Button, TouchableOpacity} from 'react-native';
+import {Text, TextInput, View, StyleSheet, Button, TouchableOpacity, Image} from 'react-native';
 
 import { getFirestore,getDocs,collection } from "firebase/firestore";
 import {app} from "../../firebaseConfig";
 import {Formik} from "formik";
 import {Picker} from "@react-native-picker/picker";
+import * as ImagePicker from "expo-image-picker";
 
 
 
 export default function AddPostScreen() {
 
+    const [image, setImage] = useState(null);
     const db = getFirestore(app);
     const [categoryList,setCategoryList] = useState([]);
 
@@ -28,6 +30,22 @@ export default function AddPostScreen() {
         })
     }
 
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 4],
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+        }
+    };
+
     return (
         <View className="p-10">
             <Text className="text-[27px] font-blod">Add Post</Text>
@@ -38,6 +56,12 @@ export default function AddPostScreen() {
             >
                 {({handleChange,handleBlur,handleSubmit,values,setFieldValue})=>(
                    <View>
+                       <TouchableOpacity onPress={pickImage}>
+                           {image?
+                               <Image source={{uri:image}}  style={{width:100,height:100,borderRadius:15}}/>
+                           :<Image source={require('../../assets/images/placeholder.jpg')}
+                                   style={{width:100,height:100,borderRadius:15}}/>}
+                       </TouchableOpacity>
                        <TextInput
                            style={styles.input}
                            placeholder="Title"
@@ -82,7 +106,7 @@ export default function AddPostScreen() {
                        />
 
 
-                       <TouchableOpacity onPress={handleSubmit} className="p-4 bg-amber-400 rounded-full mt-10">
+                       <TouchableOpacity onPress={handleSubmit} className="p-4 bg-amber-400 rounded-full mt-6">
                            <Text className="text-center text-[16px] font-bold">Submit</Text>
                        </TouchableOpacity>
                        {/*<Button
