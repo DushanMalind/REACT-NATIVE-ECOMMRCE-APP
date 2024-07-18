@@ -41,6 +41,22 @@ export default function AddPostScreen() {
                            onChangeText={handleChange('title')}
                        />
 
+                       <TextInput
+                           style={styles.input}
+                           placeholder="Description"
+                           value={values?.desc}
+                           numberOfLines={5}
+                           onChangeText={handleChange('desc')}
+                       />
+
+                       <TextInput
+                           style={styles.input}
+                           placeholder="Price"
+                           value={values?.price}
+                           keyboardType='number-pad'
+                           onChangeText={handleChange('price')}
+                       />
+
                        <Button onPress={handleSubmit}
                                className="mt-7"
                                title="submit"/>
@@ -59,6 +75,8 @@ const styles = StyleSheet.create({
         fontSize:17,
         borderRadius:10,
         paddingHorizontal:17,
+        marginBottom:5,
+        marginTop:10
 
 
     }
