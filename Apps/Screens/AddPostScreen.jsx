@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, TextInput, View, StyleSheet, Button, TouchableOpacity, Image} from 'react-native';
+import {Text, TextInput, View, StyleSheet, Button, TouchableOpacity, Image, ToastAndroid} from 'react-native';
 
 import { getFirestore,getDocs,collection } from "firebase/firestore";
 import {app} from "../../firebaseConfig";
@@ -58,8 +58,17 @@ export default function AddPostScreen() {
             <Formik
                 initialValues={{title:'',desc:'',category:'',address:'',price:'',image:''}}
                 onSubmit={values => OnSubmitMethod(values)}
+                validate={(values)=>{
+                    const errors={}
+                    if (!values.title){
+                        console.log("Title not Present");
+                        ToastAndroid.show("Title is required",ToastAndroid.SHORT);
+                        errors.name="Title is required";
+                    }
+                    return errors;
+                }}
             >
-                {({handleChange,handleBlur,handleSubmit,values,setFieldValue})=>(
+                {({handleChange,handleBlur,handleSubmit,values,setFieldValue,errors})=>(
                    <View>
                        <TouchableOpacity onPress={pickImage}>
                            {image?
