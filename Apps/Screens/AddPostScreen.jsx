@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, TextInput, View, StyleSheet, Button} from 'react-native';
+import {Text, TextInput, View, StyleSheet, Button, TouchableOpacity} from 'react-native';
 
 import { getFirestore,getDocs,collection } from "firebase/firestore";
 import {app} from "../../firebaseConfig";
@@ -30,11 +30,13 @@ export default function AddPostScreen() {
 
     return (
         <View className="p-10">
+            <Text className="text-[27px] font-blod">Add Post</Text>
+            <Text className="text-[16px] text-gray-500 mb-7">Start New Selling</Text>
             <Formik
                 initialValues={{title:'',desc:'',category:'',address:'',price:'',image:''}}
                 onSubmit={values => console.log(values)}
             >
-                {({handleChange,handleBlur,handleSubmit,values})=>(
+                {({handleChange,handleBlur,handleSubmit,values,setFieldValue})=>(
                    <View>
                        <TextInput
                            style={styles.input}
@@ -60,16 +62,17 @@ export default function AddPostScreen() {
                        />
 
                        {/*List*/}
-
+                       <View style={{borderRadius:10,borderWidth:1,marginTop:15}}>
                        <Picker
                            selectedValue={values?.category}
-                           onValueChange={handleChange('category')}
+                           onValueChange={itemValue=>setFieldValue('category',itemValue)}
                            style={styles.input}
                        >
                            {categoryList&&categoryList.map((item,index)=>(
                                <Picker.Item key={index} label={item?.name} value={item?.name}/>
                            ))}
                        </Picker>
+                       </View>
 
                        <TextInput
                            style={styles.input}
@@ -78,9 +81,13 @@ export default function AddPostScreen() {
                            onChangeText={handleChange('address')}
                        />
 
-                       <Button onPress={handleSubmit}
+
+                       <TouchableOpacity onPress={handleSubmit} className="p-4 bg-amber-400 rounded-full mt-10">
+                           <Text className="text-center text-[16px] font-bold">Submit</Text>
+                       </TouchableOpacity>
+                       {/*<Button
                                className="mt-7"
-                               title="submit"/>
+                               title="submit"/>*/}
 
                    </View>
                 )}
