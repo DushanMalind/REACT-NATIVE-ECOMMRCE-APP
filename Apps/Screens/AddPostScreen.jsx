@@ -71,6 +71,13 @@ export default function AddPostScreen() {
                            ))}
                        </Picker>
 
+                       <TextInput
+                           style={styles.input}
+                           placeholder="Addess"
+                           value={values?.address}
+                           onChangeText={handleChange('address')}
+                       />
+
                        <Button onPress={handleSubmit}
                                className="mt-7"
                                title="submit"/>
@@ -90,7 +97,9 @@ const styles = StyleSheet.create({
         borderRadius:10,
         paddingHorizontal:17,
         marginBottom:5,
-        marginTop:10
+        marginTop:10,
+        textAlignVertical:'top',
+        paddingTop:15
 
 
     }
