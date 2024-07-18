@@ -4,6 +4,7 @@ import {Text, TextInput, View, StyleSheet, Button} from 'react-native';
 import { getFirestore,getDocs,collection } from "firebase/firestore";
 import {app} from "../../firebaseConfig";
 import {Formik} from "formik";
+import {Picker} from "@react-native-picker/picker";
 
 
 
@@ -17,6 +18,7 @@ export default function AddPostScreen() {
     },[]);
 
     const getCategoryList= async () => {
+        setCategoryList([]);
         const querySnapshot = await getDocs(collection(db,'Category'));
 
         querySnapshot.forEach((doc)=>{
@@ -29,7 +31,7 @@ export default function AddPostScreen() {
     return (
         <View className="p-10">
             <Formik
-                initialValues={{title:'',desc:'',categort:'',address:'',price:'',image:''}}
+                initialValues={{title:'',desc:'',category:'',address:'',price:'',image:''}}
                 onSubmit={values => console.log(values)}
             >
                 {({handleChange,handleBlur,handleSubmit,values})=>(
@@ -56,6 +58,18 @@ export default function AddPostScreen() {
                            keyboardType='number-pad'
                            onChangeText={handleChange('price')}
                        />
+
+                       {/*List*/}
+
+                       <Picker
+                           selectedValue={values?.category}
+                           onValueChange={handleChange('category')}
+                           style={styles.input}
+                       >
+                           {categoryList&&categoryList.map((item,index)=>(
+                               <Picker.Item key={index} label={item?.name} value={item?.name}/>
+                           ))}
+                       </Picker>
 
                        <Button onPress={handleSubmit}
                                className="mt-7"
