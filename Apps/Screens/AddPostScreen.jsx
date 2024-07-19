@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Text, TextInput, View, StyleSheet, Button, TouchableOpacity, Image, ToastAndroid} from 'react-native';
 
-import { getFirestore,getDocs,collection } from "firebase/firestore";
+import { getFirestore,getDocs,collection, addDoc  } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 import {app} from "../../firebaseConfig";
 import {Formik} from "formik";
@@ -49,7 +49,7 @@ export default function AddPostScreen() {
     };
 
     const OnSubmitMethod=async (value)=>{
-        value.image=image;
+        /*value.image=image;*/
         // console.log("Values:",value);
         const resp=await fetch(image);
         const blob=await resp.blob();
@@ -60,6 +60,13 @@ export default function AddPostScreen() {
         }).then((resp)=>{
             getDownloadURL(storageRef).then(async (downloadUrl)=>{
                 console.log("URL:",downloadUrl);
+                value.image=downloadUrl;
+
+                const docRef=await addDoc(collection(db,"UserPost"),value);
+                if (docRef.id){
+                    console.log("Post Added Successfully");
+                    //ToastAndroid.show("Post Added Successfully",ToastAndroid.SHORT);
+                }
             })
         });
     }
