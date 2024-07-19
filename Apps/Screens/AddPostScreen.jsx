@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Text, TextInput, View, StyleSheet, Button, TouchableOpacity, Image, ToastAndroid} from 'react-native';
 
 import { getFirestore,getDocs,collection } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import {app} from "../../firebaseConfig";
 import {Formik} from "formik";
 import {Picker} from "@react-native-picker/picker";
@@ -14,6 +15,7 @@ export default function AddPostScreen() {
     const [image, setImage] = useState(null);
     const db = getFirestore(app);
     const [categoryList,setCategoryList] = useState([]);
+    const storage = getStorage();
 
     useEffect(()=>{
         getCategoryList();
@@ -46,9 +48,12 @@ export default function AddPostScreen() {
         }
     };
 
-    const OnSubmitMethod=(value)=>{
+    const OnSubmitMethod=async (value)=>{
         value.image=image;
-        console.log("Values:",value);
+        // console.log("Values:",value);
+        const resp=await fetch(image);
+        const blob=await resp.blob();
+        const storageRef = ref(storage, 'some-child');
     }
 
     return (
