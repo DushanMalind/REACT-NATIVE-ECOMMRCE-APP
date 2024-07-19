@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Text, TextInput, View, StyleSheet, Button, TouchableOpacity, Image, ToastAndroid} from 'react-native';
 
 import { getFirestore,getDocs,collection } from "firebase/firestore";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 import {app} from "../../firebaseConfig";
 import {Formik} from "formik";
 import {Picker} from "@react-native-picker/picker";
@@ -53,7 +53,15 @@ export default function AddPostScreen() {
         // console.log("Values:",value);
         const resp=await fetch(image);
         const blob=await resp.blob();
-        const storageRef = ref(storage, 'some-child');
+        const storageRef = ref(storage, 'communityPost/'+Date.now()+".jpg");
+
+        uploadBytes(storageRef, blob).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+        }).then((resp)=>{
+            getDownloadURL(storageRef).then(async (downloadUrl)=>{
+                console.log("URL:",downloadUrl);
+            })
+        });
     }
 
     return (
