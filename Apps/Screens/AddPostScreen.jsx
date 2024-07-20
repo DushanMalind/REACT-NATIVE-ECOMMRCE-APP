@@ -7,6 +7,7 @@ import {app} from "../../firebaseConfig";
 import {Formik} from "formik";
 import {Picker} from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
+import {useUser} from "@clerk/clerk-expo";
 
 
 
@@ -16,6 +17,7 @@ export default function AddPostScreen() {
     const db = getFirestore(app);
     const [categoryList,setCategoryList] = useState([]);
     const storage = getStorage();
+    const {user}=useUser();
 
     useEffect(()=>{
         getCategoryList();
@@ -61,6 +63,9 @@ export default function AddPostScreen() {
             getDownloadURL(storageRef).then(async (downloadUrl)=>{
                 console.log("URL:",downloadUrl);
                 value.image=downloadUrl;
+                value.userName=user.fullName;
+                value.userEmail=user.primaryEmailAddress.emailAddress;
+                value.userImage=user.imageUrl;
 
                 const docRef=await addDoc(collection(db,"UserPost"),value);
                 if (docRef.id){
@@ -76,7 +81,7 @@ export default function AddPostScreen() {
             <Text className="text-[27px] font-blod">Add Post</Text>
             <Text className="text-[16px] text-gray-500 mb-7">Start New Selling</Text>
             <Formik
-                initialValues={{title:'',desc:'',category:'',address:'',price:'',image:''}}
+                initialValues={{title:'',desc:'',category:'',address:'',price:'',image:'',userName:'',userEmail:'',userImage:''}}
                 onSubmit={values => OnSubmitMethod(values)}
                 validate={(values)=>{
                     const errors={}
