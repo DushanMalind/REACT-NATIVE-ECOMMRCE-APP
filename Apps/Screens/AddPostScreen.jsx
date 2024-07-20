@@ -88,6 +88,14 @@ export default function AddPostScreen() {
                     console.log("Post Added Successfully");
                     //ToastAndroid.show("Post Added Successfully",ToastAndroid.SHORT);
                     Alert.alert("Success","Post Added Successfully!");
+                    //clear the form
+                   /* setImage(null);
+                    value.title='';
+                    value.desc='';
+                    value.category='';
+                    value.address='';
+                    value.price='';
+                    value.image='';*/
                 }
             })
         });
