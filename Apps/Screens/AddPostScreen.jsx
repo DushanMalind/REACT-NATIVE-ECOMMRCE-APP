@@ -1,5 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Text, TextInput, View, StyleSheet, Button, TouchableOpacity, Image, ToastAndroid} from 'react-native';
+import {
+    Text,
+    TextInput,
+    View,
+    StyleSheet,
+    Button,
+    TouchableOpacity,
+    Image,
+    ToastAndroid,
+    Alert,
+    ActivityIndicator
+} from 'react-native';
 
 import { getFirestore,getDocs,collection, addDoc  } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
@@ -18,6 +29,7 @@ export default function AddPostScreen() {
     const [categoryList,setCategoryList] = useState([]);
     const storage = getStorage();
     const {user}=useUser();
+    const [loading,setLoading]=useState(false);
 
     useEffect(()=>{
         getCategoryList();
@@ -53,6 +65,9 @@ export default function AddPostScreen() {
     const OnSubmitMethod=async (value)=>{
         /*value.image=image;*/
         // console.log("Values:",value);
+
+        setLoading(true);
+
         const resp=await fetch(image);
         const blob=await resp.blob();
         const storageRef = ref(storage, 'communityPost/'+Date.now()+".jpg");
@@ -69,8 +84,10 @@ export default function AddPostScreen() {
 
                 const docRef=await addDoc(collection(db,"UserPost"),value);
                 if (docRef.id){
+                    setLoading(false);
                     console.log("Post Added Successfully");
                     //ToastAndroid.show("Post Added Successfully",ToastAndroid.SHORT);
+                    Alert.alert("Success","Post Added Successfully!");
                 }
             })
         });
@@ -145,8 +162,16 @@ export default function AddPostScreen() {
                        />
 
 
-                       <TouchableOpacity onPress={handleSubmit} className="p-4 bg-amber-400 rounded-full mt-6">
-                           <Text className="text-center text-[16px] font-bold">Submit</Text>
+                       <TouchableOpacity onPress={handleSubmit}
+                                         style={{
+                                             backgroundColor:loading?'#ccc':'#FFCA4B',
+                       }}
+                                            disabled={loading}
+                                         className="p-4 bg-amber-400 rounded-full mt-6">
+                           {loading?
+                                <ActivityIndicator color='#fff'/>
+                               : <Text className="text-center text-[16px] font-bold">Submit</Text>
+                           }
                        </TouchableOpacity>
                        {/*<Button
                                className="mt-7"
