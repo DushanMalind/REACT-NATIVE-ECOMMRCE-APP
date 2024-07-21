@@ -27,8 +27,8 @@ export default function Slider({sliderList}) {
     }
 
     return (
-        /*<View className="mt-5">
-            {/!*<FlatList
+        <View className="mt-5">
+            <FlatList
                 data={sliderList}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -39,10 +39,10 @@ export default function Slider({sliderList}) {
                         />
                     </View>
                 )}
-            />*!/}
+            />
 
-        </View>*/
-        <View className="mt-5">
+        </View>
+        /*<View className="mt-5">
             <FlatList
                 ref={flatListRef}
                 data={sliderList}
@@ -58,6 +58,6 @@ export default function Slider({sliderList}) {
                 keyExtractor={(item, index) => index.toString()}
                 onScrollToIndexFailed={() => {}}
             />
-        </View>
+        </View>*/
     );
 }

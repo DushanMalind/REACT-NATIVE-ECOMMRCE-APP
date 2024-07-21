@@ -4,14 +4,17 @@ import Header from "../Components/HomeScreen/Header";
 import Slider from "../Components/HomeScreen/Slider";
 import {collection, getDocs, getFirestore} from "firebase/firestore";
 import {app} from "../../firebaseConfig";
+import Categories from "../Components/HomeScreen/Categories";
 
 
 export default function HomeScreen(){
     const db = getFirestore(app);
     const [sliderList, setSliderList] = useState([]);
+    const [categoryList,setCategoryList] = useState([]);
 
     useEffect(()=>{
         getSliders();
+        setCategoryList();
     },[]);
 
     /*
@@ -47,6 +50,7 @@ export default function HomeScreen(){
         <View className="py-10 px-6 bg-white flex-1">
             <Header/>
             <Slider sliderList={sliderList}/>
+            <Categories categoryList={categoryList}/>
         </View>
     );
 }
