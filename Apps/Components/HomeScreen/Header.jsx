@@ -18,10 +18,10 @@ export default function Header() {
             </View>
 
             {/*Search bar*/}
-            <View className="p-3 px-5 mt-5 flex flex-row items-center  bg-white rounded-full">
+            <View className="p-3 px-5 mt-5 flex flex-row items-center  bg-white rounded-full border-[2px] border-amber-300">
                 <Ionicons name="search" size={24} color="gray" />
                 <TextInput placeholder='Search' className="ml-2 text-[18px]"
-                           onChangeText={(e)=>console.log(e)}
+                           onChangeText={(value)=>console.log(value)}
                 />
             </View>
 
