@@ -9,7 +9,7 @@ import {
     Image,
     ToastAndroid,
     Alert,
-    ActivityIndicator
+    ActivityIndicator, KeyboardAvoidingView, ScrollView
 } from 'react-native';
 
 import { getFirestore,getDocs,collection, addDoc  } from "firebase/firestore";
@@ -102,7 +102,8 @@ export default function AddPostScreen() {
     }
 
     return (
-        <View className="p-10">
+        <KeyboardAvoidingView>
+        <ScrollView className="p-10">
             <Text className="text-[27px] font-blod">Add Post</Text>
             <Text className="text-[16px] text-gray-500 mb-7">Start New Selling</Text>
             <Formik
@@ -188,7 +189,8 @@ export default function AddPostScreen() {
                    </View>
                 )}
             </Formik>
-        </View>
+        </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
