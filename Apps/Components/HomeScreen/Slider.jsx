@@ -14,8 +14,8 @@ export default function Slider({sliderList}) {
     }, [sliderList.length]);
 
     return (
-        <View className="mt-5">
-            {/*<FlatList
+        /*<View className="mt-5">
+            {/!*<FlatList
                 data={sliderList}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -26,7 +26,10 @@ export default function Slider({sliderList}) {
                         />
                     </View>
                 )}
-            />*/}
+            />*!/}
+
+        </View>*/
+        <View className="mt-5">
             <FlatList
                 data={sliderList}
                 horizontal={true}
