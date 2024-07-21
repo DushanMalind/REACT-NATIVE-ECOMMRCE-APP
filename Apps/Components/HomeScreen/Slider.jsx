@@ -15,7 +15,7 @@ export default function Slider({sliderList}) {
 
     return (
         <View className="mt-5">
-            <FlatList
+            {/*<FlatList
                 data={sliderList}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -26,6 +26,26 @@ export default function Slider({sliderList}) {
                         />
                     </View>
                 )}
+            />*/}
+            <FlatList
+                data={sliderList}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({item, index}) => (
+                    <View>
+                        <Image source={{uri: item?.image}}
+                               className="w-[330px] h-[200px] object-contain mr-3 rounded-lg"
+                        />
+                    </View>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+                extraData={currentIndex}
+                onScrollToIndexFailed={() => {}}
+                ref={(ref) => {
+                    if (ref) {
+                        ref.scrollToIndex({ animated: true, index: currentIndex });
+                    }
+                }}
             />
         </View>
     );
