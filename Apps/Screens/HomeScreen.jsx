@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import Header from "../Components/HomeScreen/Header";
 import Slider from "../Components/HomeScreen/Slider";
-import {collection, getDocs, getFirestore} from "firebase/firestore";
+import {collection, getDocs, getFirestore, orderBy} from "firebase/firestore";
 import {app} from "../../firebaseConfig";
 import Categories from "../Components/HomeScreen/Categories";
 import LatestltemList from "../Components/HomeScreen/LatestltemList";
@@ -55,7 +55,7 @@ export default function HomeScreen(){
 
     const getLatestItemsList=async ()=>{
         setLatestItemList([]);
-        const querySnapshot = await getDocs(collection(db,'UserPost'));
+        const querySnapshot = await getDocs(collection(db,'UserPost'),orderBy('createdAt','desc'));
 
         querySnapshot.forEach((doc)=>{
             // console.log(doc.id,doc.data());
