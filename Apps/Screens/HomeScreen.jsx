@@ -5,6 +5,7 @@ import Slider from "../Components/HomeScreen/Slider";
 import {collection, getDocs, getFirestore} from "firebase/firestore";
 import {app} from "../../firebaseConfig";
 import Categories from "../Components/HomeScreen/Categories";
+import LatestltemList from "../Components/HomeScreen/LatestltemList";
 
 
 export default function HomeScreen(){
@@ -15,6 +16,7 @@ export default function HomeScreen(){
     useEffect(()=>{
         getSliders();
         getCategoryList();
+        getLatestItemsList();
     },[]);
 
     /*
@@ -46,11 +48,27 @@ export default function HomeScreen(){
         })
     }
 
+    /*
+    * Item List
+    * */
+
+    const getLatestItemsList=async ()=>{
+        setCategoryList([]);
+        const querySnapshot = await getDocs(collection(db,'UserPost'));
+
+        querySnapshot.forEach((doc)=>{
+            // console.log(doc.id,doc.data());
+            console.log("Docs:",doc.data());
+            setCategoryList(categoryList=>[...categoryList,doc.data()]);
+        })
+    }
+
     return (
         <View className="py-10 px-6 bg-white flex-1">
             <Header/>
             <Slider sliderList={sliderList}/>
             <Categories categoryList={categoryList}/>
+            <LatestltemList/>
         </View>
     );
 }
