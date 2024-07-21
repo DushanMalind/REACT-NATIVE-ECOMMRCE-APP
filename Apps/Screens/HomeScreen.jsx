@@ -14,7 +14,7 @@ export default function HomeScreen(){
 
     useEffect(()=>{
         getSliders();
-        setCategoryList();
+        getCategoryList();
     },[]);
 
     /*
