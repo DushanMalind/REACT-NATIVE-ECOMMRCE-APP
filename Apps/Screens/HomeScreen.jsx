@@ -29,7 +29,7 @@ export default function HomeScreen(){
     return (
         <View className="py-10 px-6 bg-white flex-1">
             <Header/>
-            <Slider/>
+            <Slider sliderList={sliderList}/>
         </View>
     );
 }
