@@ -35,7 +35,7 @@ export default function Slider({sliderList}) {
                 renderItem={({item,index}) => (
                     <View>
                         <Image source={{uri:item?.image}}
-                               className="w-[330px] h-[200px] object-contain mr-3 rounded-lg"
+                               className="w-[310px] h-[200px] object-contain mr-3 rounded-lg"
                         />
                     </View>
                 )}
