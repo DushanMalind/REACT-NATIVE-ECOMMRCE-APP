@@ -1,11 +1,10 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-export default function HomeScreen(){
+export default function Header() {
     return (
-        <View className="p-8">
-            <Text>HomeScreen</Text>
+        <View>
+            <Text>Header</Text>
         </View>
     );
 }
-
