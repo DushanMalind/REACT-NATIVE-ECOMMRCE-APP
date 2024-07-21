@@ -27,6 +27,22 @@ export default function HomeScreen(){
             setSliderList(sliderList=>[...sliderList, doc.data()]);
         });
     }
+
+    /*
+    * Get all categories from firebase
+    * */
+
+    const getCategoryList= async () => {
+        setCategoryList([]);
+        const querySnapshot = await getDocs(collection(db,'Category'));
+
+        querySnapshot.forEach((doc)=>{
+            // console.log(doc.id,doc.data());
+            console.log("Docs:",doc.data());
+            setCategoryList(categoryList=>[...categoryList,doc.data()]);
+        })
+    }
+
     return (
         <View className="py-10 px-6 bg-white flex-1">
             <Header/>
