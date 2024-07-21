@@ -19,6 +19,7 @@ export default function HomeScreen(){
     * */
 
     const getSliders=async ()=>{
+        setSliderList([]);
         const querySnapshot = await getDocs(collection(db, "Sliders"));
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
