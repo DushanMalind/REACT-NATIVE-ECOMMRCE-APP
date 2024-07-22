@@ -9,8 +9,17 @@ const Stack = createStackNavigator();
 export default function ExploreScreenStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name='explore-tab' component={ExploreScreen}/>
-            <Stack.Screen name='product-detail' component={ProductDetail}/>
+            <Stack.Screen options={{headerShown:false}} name='explore-tab' component={ExploreScreen}/>
+            <Stack.Screen name='product-detail' component={ProductDetail}
+                          options={{
+                              headerStyle:{
+                                  backgroundColor:'#FFCA4B'
+                              },
+                              headerTintColor:'#fff',
+                              headerTitle:"Details"
+
+                          }}
+            />
         </Stack.Navigator>
     );
 }
