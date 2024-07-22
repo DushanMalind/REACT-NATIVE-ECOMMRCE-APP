@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
-import {useUser} from "@clerk/clerk-expo";
+import {useAuth, useUser} from "@clerk/clerk-expo";
 import img from "../../assets/images/post.png";
 import explore from "../../assets/images/explore.png";
 import details from "../../assets/images/details.png";
@@ -37,7 +37,13 @@ export default function ProfileScreen() {
 
     const navigation=useNavigation();
 
+    const {isLoaded, signOut}=useAuth();
+
     const onMenuPress=(item)=>{
+        if (item.name==='LogOut'){
+            signOut();
+            return;
+        }
         item?.path?navigation.navigate(item.path):null;
     }
 
