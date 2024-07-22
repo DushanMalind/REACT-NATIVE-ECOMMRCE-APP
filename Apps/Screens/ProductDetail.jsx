@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Linking, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {useRoute} from "@react-navigation/native";
 
 export default function ProductDetail() {
@@ -10,6 +10,13 @@ export default function ProductDetail() {
         console.log(params);
         params&&setProduct(params.product);
     },[params])
+
+    const sendEmailMessage=()=>{
+        //Linking.openURL(`mailto:${product.userEmail}?subject=Product Inquiry&body=Hello ${product.userName}, I am interested in your product ${product.title}. Please provide me more details.`);
+        const subject="Product Inquiry "+product.title;
+        const body="Hello "+product.userName+", I am interested in your product "+product.title+". Please provide me more details.";
+        Linking.openURL(`mailto:${product.userEmail}?subject=${subject}&body=${body}`);
+    }
 
     return (
         <ScrollView className="bg-white">
@@ -41,7 +48,9 @@ export default function ProductDetail() {
             </View>
 
 
-            <TouchableOpacity className="z-40 bg-amber-400 rounded-full p-4 m-2 ">
+            <TouchableOpacity className="z-40 bg-amber-400 rounded-full p-4 m-2"
+                              onPress={()=>sendEmailMessage()}
+            >
                 <Text className="text-[18px] font-bold text-white text-center ">Send Message</Text>
             </TouchableOpacity>
 
