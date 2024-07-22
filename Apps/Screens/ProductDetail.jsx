@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Linking, ScrollView, Share, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, Linking, ScrollView, Share, Text, TouchableOpacity, View} from 'react-native';
 import {useRoute} from "@react-navigation/native";
 import { Ionicons } from '@expo/vector-icons';
-import {content} from "../../tailwind.config";
 import {useUser} from "@clerk/clerk-expo";
+import {app} from "../../firebaseConfig";
+import {collection, getDocs, getFirestore, query, where, deleteDoc} from "firebase/firestore";
 
 export default function ProductDetail({navigation}) {
     const {params}=useRoute();
     const [product,setProduct]=useState([]);
     const {user}=useUser();
+    const db=getFirestore(app);
 
     useEffect(()=>{
         console.log(params);
@@ -50,7 +52,31 @@ export default function ProductDetail({navigation}) {
     }
 
     const deleteUserPost=()=>{
+        Alert.alert('Do you Want to Delete this post?',"Are You Sure Delete?",[
+            {
+                text:'Yes',
+                onPress:()=>deleteFromFirestore()
+            },
+            {
+                text:'Cancel',
+                onPress:()=>console.log("No"),
+                style:'cancel'
+            }
+        ])
+    }
+
+    const deleteFromFirestore=async ()=>{
         console.log("Delete Post");
+        const q= query(collection(db,'UserPost'),where('title','==',product.title));
+        const snapshot=await getDocs(q);
+
+        snapshot.forEach((doc)=>{
+            console.log(doc.id);
+            deleteDoc(doc.ref).then(resp=>{
+                console.log("Document Deleted");
+                navigation.goBack();
+            });
+        });
     }
 
     return (
