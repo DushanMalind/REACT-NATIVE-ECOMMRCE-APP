@@ -8,6 +8,7 @@ import ProfileScreen from "../Screens/ProfileScreen";
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import HomeScreeStackNav from "./HomeScreeStackNav";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +18,7 @@ export default function TabNavigation(){
         <Tab.Navigator screenOptions={{headerShown:false,
             tabBarActiveTintColor:'#F59E0B',
         }}>
-            <Tab.Screen name="home" component={HomeScreen}
+            <Tab.Screen name="home" component={HomeScreeStackNav}
                options={{
                    tabBarLabel:({color})=>(
                           <Text style={{color:color,fontSize:12,marginBottom:3}}>Home</Text>
