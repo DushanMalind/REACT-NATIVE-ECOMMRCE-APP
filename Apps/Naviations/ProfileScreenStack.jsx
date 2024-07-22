@@ -1,10 +1,10 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-export default function ProfileStackNav() {
+export default function ProfileScreenStack() {
     return (
         <View>
-            <Text></Text>
+            <Text>ProfileScreenStack</Text>
         </View>
     );
 }
