@@ -4,15 +4,24 @@ import {collection, getDocs, getFirestore, orderBy, query, where} from "firebase
 import {app} from "../../firebaseConfig";
 import {useUser} from "@clerk/clerk-expo";
 import LatestltemList from "../Components/HomeScreen/LatestltemList";
+import {useNavigation} from "@react-navigation/native";
 
 export default function MyProduct() {
     const db=getFirestore(app);
     const {user}=useUser();
     const [productList,setProductList]=useState([]);
+    const navigation=useNavigation();
 
     useEffect(()=>{
         user&&getUserPost();
     },[user])
+
+    useEffect(()=>{
+        navigation.addListener('focus',(e)=>{
+            console.log(e);
+            getUserPost();
+        })
+    },[navigation])
 
     const getUserPost=async ()=>{
         setProductList([]);
