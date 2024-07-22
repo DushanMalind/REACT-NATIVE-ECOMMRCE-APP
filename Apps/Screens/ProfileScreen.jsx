@@ -5,6 +5,7 @@ import img from "../../assets/images/post.png";
 import explore from "../../assets/images/explore.png";
 import details from "../../assets/images/details.png";
 import logout from "../../assets/images/logout.png";
+import {useNavigation} from "@react-navigation/native";
 export default function ProfileScreen() {
 
     const {user}=useUser();
@@ -34,8 +35,10 @@ export default function ProfileScreen() {
         }
     ]
 
-    const onMenuPress=(item)=>{
+    const navigation=useNavigation();
 
+    const onMenuPress=(item)=>{
+        item?.path?navigation.navigate(item.path):null;
     }
 
     return (

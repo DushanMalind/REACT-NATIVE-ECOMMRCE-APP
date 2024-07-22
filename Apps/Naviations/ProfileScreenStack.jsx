@@ -13,7 +13,16 @@ export default function ProfileScreenStack() {
              <Stack.Screen name='prfile-tab' component={ProfileScreen}
                            options={{headerShown:false}}
              />
-             <Stack.Screen name='my-product' component={MyProduct}/>
+             <Stack.Screen name='my-product' component={MyProduct}
+                           options={{
+                               headerStyle:{
+                                   backgroundColor:'#FFCA4B'
+                               },
+                               headerTintColor:'#fff',
+                               headerTitle:"My Product"
+
+                           }}
+             />
          </Stack.Navigator>
     );
 }
