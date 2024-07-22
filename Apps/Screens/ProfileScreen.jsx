@@ -13,12 +13,14 @@ export default function ProfileScreen() {
         {
             id:1,
             name:'My Post',
-            icon:img
+            icon:img,
+            path:'my-product'
         },
         {
             id:2,
             name:'Explore',
-            icon:explore
+            icon:explore,
+            path: 'explore'
         },
         {
             id:3,
@@ -31,6 +33,10 @@ export default function ProfileScreen() {
             icon:logout
         }
     ]
+
+    const onMenuPress=(item)=>{
+
+    }
 
     return (
         <View className="p-5 py-8 bg-white flex-1">
@@ -48,7 +54,9 @@ export default function ProfileScreen() {
                 style={{marginTop:20}}
                 renderItem={({item, index}) => (
                      <TouchableOpacity className="flex-1 p-3 border-[1px] items-center m-4 rounded-lg border-amber-300
-                     bg-amber-200 mx-2 mt-4">
+                     bg-amber-200 mx-2 mt-4"
+                                       onPress={()=>onMenuPress(item)}
+                     >
                          {item.icon&& <Image source={item?.icon}
                          className="w-[50px] h-[50px]"
                          />}
