@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, Image, Linking, ScrollView, Share, Text, TouchableOpacity, View} from 'react-native';
-import {useRoute} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import { Ionicons } from '@expo/vector-icons';
 import {useUser} from "@clerk/clerk-expo";
 import {app} from "../../firebaseConfig";
@@ -11,6 +11,7 @@ export default function ProductDetail({navigation}) {
     const [product,setProduct]=useState([]);
     const {user}=useUser();
     const db=getFirestore(app);
+    const nav=useNavigation();
 
     useEffect(()=>{
         console.log(params);
@@ -74,7 +75,7 @@ export default function ProductDetail({navigation}) {
             console.log(doc.id);
             deleteDoc(doc.ref).then(resp=>{
                 console.log("Document Deleted");
-                navigation.goBack();
+                nav.goBack();
             });
         });
     }
