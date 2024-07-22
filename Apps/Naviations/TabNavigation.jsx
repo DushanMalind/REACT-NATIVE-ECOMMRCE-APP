@@ -9,6 +9,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreeStackNav from "./HomeScreeStackNav";
+import ExploreScreenStack from "./ExploreScreenStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +28,7 @@ export default function TabNavigation(){
                    )
                }}
             />
-            <Tab.Screen name="explore" component={ExploreScreen}
+            <Tab.Screen name="explore" component={ExploreScreenStack}
                         options={{
                             tabBarLabel:({color})=>(
                                 <Text style={{color:color,fontSize:12,marginBottom:3}}>Explore</Text>
