@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Linking, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Linking, ScrollView, Share, Text, TouchableOpacity, View} from 'react-native';
 import {useRoute} from "@react-navigation/native";
 import { Ionicons } from '@expo/vector-icons';
+import {content} from "../../tailwind.config";
 
 export default function ProductDetail({navigation}) {
     const {params}=useRoute();
@@ -27,7 +28,15 @@ export default function ProductDetail({navigation}) {
     }
 
     const shareProduct=()=>{
-        console.log("Share Product");
+        /*console.log("Share Product");*/
+        const content={
+            message:"Hello, I am interested in your product "+product?.title+". Please provide me more details."+product?.desc+""
+        }
+        Share.share(content).then(resp=>{
+            console.log(resp);
+        },(error)=>{
+            console.log(error);
+        })
     }
 
 
