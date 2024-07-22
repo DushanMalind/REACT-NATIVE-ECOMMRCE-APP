@@ -16,15 +16,18 @@ export default function ProductDetail({navigation}) {
     const shareButton=()=>{
         navigation.setOptions({
             headerRight: () => (
-                <TouchableOpacity
-                    onPress={()=>shareProduct()}
-                >
+
                 <Ionicons name="share-social-sharp" size={24} color="white"
+                          onPress={()=>shareProduct()}
                           style={{marginRight:10}}
                 />
-                </TouchableOpacity>
+
             ),
         });
+    }
+
+    const shareProduct=()=>{
+        console.log("Share Product");
     }
 
 
