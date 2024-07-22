@@ -16,6 +16,7 @@ export default function ItemList() {
     },[params])
 
     const getItemListByCategory=async ()=>{
+        setItemList([]);
         const q=query(collection(db,'UserPost'),where('category','==',params.category));
         const snapshot = await getDocs(q);
         snapshot.forEach((doc)=>{
@@ -25,8 +26,12 @@ export default function ItemList() {
     }
 
     return (
-        <View>
-            <LatestltemList latestItemList={itemList}/>
+        <View className="p-2">
+            {itemList?.length>0?
+            <LatestltemList latestItemList={itemList}
+                            heading={'Best Post'}
+            />
+                :<Text className="p-5 text-[20px] text-gray-500 justify-center text-center mt-24">No Post Found</Text>}
         </View>
     );
 }

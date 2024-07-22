@@ -69,7 +69,7 @@ export default function HomeScreen(){
             <Header/>
             <Slider sliderList={sliderList}/>
             <Categories categoryList={categoryList}/>
-            <LatestltemList latestItemList={latestItemList}/>
+            <LatestltemList latestItemList={latestItemList} heading={'Best Items'}/>
         </ScrollView>
     );
 }
