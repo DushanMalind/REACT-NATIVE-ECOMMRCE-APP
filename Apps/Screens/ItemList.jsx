@@ -21,6 +21,7 @@ export default function ItemList() {
         setLoading(true);
         const q=query(collection(db,'UserPost'),where('category','==',params.category));
         const snapshot = await getDocs(q);
+        setLoading(false);
         snapshot.forEach((doc)=>{
             console.log(doc.data());
             setItemList(itemList=>[...itemList,doc.data()]);
