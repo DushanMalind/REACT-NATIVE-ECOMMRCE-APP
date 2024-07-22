@@ -32,7 +32,7 @@ export default function ItemList() {
     return (
         <View className="p-2">
             {loading?
-                <ActivityIndicator size='large' color='#FFCA4B'/>
+                <ActivityIndicator className="mt-20" size='large' color='#FFCA4B'/>
                 :
             itemList?.length>0?
             <LatestltemList latestItemList={itemList}
