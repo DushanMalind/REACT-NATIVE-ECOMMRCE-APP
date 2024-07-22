@@ -3,10 +3,12 @@ import {Image, Linking, ScrollView, Share, Text, TouchableOpacity, View} from 'r
 import {useRoute} from "@react-navigation/native";
 import { Ionicons } from '@expo/vector-icons';
 import {content} from "../../tailwind.config";
+import {useUser} from "@clerk/clerk-expo";
 
 export default function ProductDetail({navigation}) {
     const {params}=useRoute();
     const [product,setProduct]=useState([]);
+    const {user}=useUser();
 
     useEffect(()=>{
         console.log(params);
@@ -47,6 +49,10 @@ export default function ProductDetail({navigation}) {
         Linking.openURL(`mailto:${product.userEmail}?subject=${subject}&body=${body}`);
     }
 
+    const deleteUserPost=()=>{
+        console.log("Delete Post");
+    }
+
     return (
         <ScrollView className="bg-white">
            <Image source={{uri:product.image}}
@@ -76,12 +82,24 @@ export default function ProductDetail({navigation}) {
                 </View>
             </View>
 
-
-            <TouchableOpacity className="z-40 bg-amber-400 rounded-full p-4 m-2"
+            {user?.primaryEmailAddress.emailAddress===product.userEmail?
+                <TouchableOpacity className="z-40 bg-red-400 rounded-full p-4 m-2"
+                                  onPress={()=>deleteUserPost()}
+                >
+                    <Text className="text-[18px] font-bold text-white text-center ">Delete Post</Text>
+                </TouchableOpacity>
+                :
+                <TouchableOpacity className="z-40 bg-amber-400 rounded-full p-4 m-2"
+                                  onPress={()=>sendEmailMessage()}
+                >
+                    <Text className="text-[18px] font-bold text-white text-center ">Send Message</Text>
+                </TouchableOpacity>
+            }
+            {/*<TouchableOpacity className="z-40 bg-amber-400 rounded-full p-4 m-2"
                               onPress={()=>sendEmailMessage()}
             >
                 <Text className="text-[18px] font-bold text-white text-center ">Send Message</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
 
         </ScrollView>
     );

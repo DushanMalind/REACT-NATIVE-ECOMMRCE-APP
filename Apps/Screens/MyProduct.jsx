@@ -28,6 +28,7 @@ export default function MyProduct() {
         <View>
             <LatestltemList latestItemList={productList}
                             heading={'My All Product'}
+
             />
         </View>
     );
