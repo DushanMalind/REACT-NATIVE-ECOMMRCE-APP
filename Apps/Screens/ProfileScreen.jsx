@@ -33,7 +33,7 @@ export default function ProfileScreen() {
     ]
 
     return (
-        <View className="p-5 py-8">
+        <View className="p-5 py-8 bg-white flex-1">
             <View className="items-center mt-5">
             <Image source={{uri:user?.imageUrl}}
                      className="w-[100px] h-[100px] rounded-full"
@@ -47,12 +47,12 @@ export default function ProfileScreen() {
                 numColumns={3}
                 style={{marginTop:20}}
                 renderItem={({item, index}) => (
-                     <TouchableOpacity className="flex-1 p-5 border-[1px] items-center m-4 rounded-lg border-amber-300
-                     bg-amber-200 mx-4 mt-4">
+                     <TouchableOpacity className="flex-1 p-3 border-[1px] items-center m-4 rounded-lg border-amber-300
+                     bg-amber-200 mx-2 mt-4">
                          {item.icon&& <Image source={item?.icon}
                          className="w-[50px] h-[50px]"
                          />}
-                         <Text>{item.name}</Text>
+                         <Text className="text-[12px] mt-2 text-black">{item.name}</Text>
                      </TouchableOpacity>
                 )}
             />
