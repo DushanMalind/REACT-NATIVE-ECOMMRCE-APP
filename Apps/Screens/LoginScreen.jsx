@@ -33,7 +33,7 @@ export default function LoginScreen() {
             <Image source={require('../../assets/images/login.jpg')}
             className="w-full h-[400px] object-cover"
             />
-            <View className="p-8 bg-amber-100  mt-[-20px] rounded-t-3xl shadow-md">
+            <View className="p-8  mt-[-20px] rounded-t-3xl shadow-md">
                 <Text className="text-[30px] font-bold">Home Market</Text>
                 <Text className="text-[18px] text-gray-500 mt-6">You can
                 Sell Items, Buy Items, Make a Wishlist and many more.

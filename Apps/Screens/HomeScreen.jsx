@@ -23,11 +23,11 @@ export default function HomeScreen(){
         getLatestItemsList();
     },[]);
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         navigation.addListener('focus',(e)=>{
             getLatestItemsList();
         })
-    },[]);
+    },[]);*/
 
     /*Post Add new refresh*/
 
