@@ -6,6 +6,7 @@ import {collection, getDocs, getFirestore, orderBy} from "firebase/firestore";
 import {app} from "../../firebaseConfig";
 import Categories from "../Components/HomeScreen/Categories";
 import LatestltemList from "../Components/HomeScreen/LatestltemList";
+import {useNavigation} from "@react-navigation/native";
 
 
 export default function HomeScreen(){
@@ -13,12 +14,22 @@ export default function HomeScreen(){
     const [sliderList, setSliderList] = useState([]);
     const [categoryList,setCategoryList] = useState([]);
     const [latestItemList,setLatestItemList] = useState([]);
+    const [searchText, setSearchText] = useState('');
+    const navigation=useNavigation();
 
     useEffect(()=>{
         getSliders();
         getCategoryList();
         getLatestItemsList();
     },[]);
+
+    useEffect(()=>{
+        navigation.addListener('focus',(e)=>{
+            getLatestItemsList();
+        })
+    },[]);
+
+    /*Post Add new refresh*/
 
     /*
     * Get all sliders from firebase
@@ -64,12 +75,31 @@ export default function HomeScreen(){
         })
     }
 
+    /*
+   * Filtered lists based on search text
+   */
+
+    const handleSearch = (value) => {
+        setSearchText(value);
+    };
+
+    const filteredSliders = sliderList.filter(slider =>
+        slider.title && slider.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    const filteredCategories = categoryList.filter(category =>
+        category.name && category.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    const filteredLatestItems = latestItemList.filter(item =>
+        item.title && item.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
         <ScrollView className="py-10 px-6 bg-white flex-1">
-            <Header/>
+            <Header  onSearch={handleSearch}/>
             <Slider sliderList={sliderList}/>
             <Categories categoryList={categoryList}/>
-            <LatestltemList latestItemList={latestItemList} heading={'Best Items'}/>
+           {/* <LatestltemList latestItemList={latestItemList} heading={'Best Items'}/>*/}
+            <LatestltemList latestItemList={filteredLatestItems} heading={'Best Items'}/>
         </ScrollView>
     );
 }
